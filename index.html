@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alziro Guarany | Desenvolvedor & Professor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #2a4858);
+            color: white;
+            width: 100%;
+            padding: 50px 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 92%;
+            margin: -30px auto 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        h1 { margin: 0; font-size: 1.8rem; }
+        p.subtitle { opacity: 0.9; margin-top: 5px; font-size: 1.1rem; }
+        h2 { color: #1a2a6c; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; margin-top: 30px; }
+
+        .card {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            background-color: #ffffff;
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-3px); border-color: #1a2a6c; }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            padding: 12px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .btn-play { background: #00875f; color: white; } /* Cor Google Play */
+        .btn-yt { background: #ff0000; color: white; }   /* Cor YouTube */
+        .btn-policy { background: #f0f2f5; color: #1a2a6c; border: 1px solid #1a2a6c; }
+
+        .btn:hover { opacity: 0.8; }
+
+        footer {
+            margin: 20px 0;
+            font-size: 0.85rem;
+            color: #65676b;
+            text-align: center;
+        }
+
+        /* Ajuste para Celular: evita excesso de espaços e quebras estranhas */
+        @media (max-width: 480px) {
+            header { padding: 40px 15px; }
+            h1 { font-size: 1.5rem; }
+            .btn { width: 100%; flex: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Alziro Guarany</h1>
+    <p class="subtitle">Desenvolvedor Android & Professor de Informática</p>
+</header>
+
+<div class="container">
+    <h2>Destaque na Google Play</h2>
+    <div class="card">
+        <h3>Meu Gás: Controle e Duração</h3>
+        <p>Economize e tenha o controle total do seu botijão. O app estima a duração baseada no seu uso real, sem precisar de balanças.</p>
+        <div class="btn-group">
+            <a href="https://play.google.com/store/apps/details?id=com.ag.previsodogs" class="btn btn-play" target="_blank">Baixar na Play Store</a>
+            <a href="https://alziroguarany.github.io/politica-gas.html" class="btn btn-policy">Privacidade</a>
+        </div>
+    </div>
+
+    <h2>Aulas de Informática</h2>
+    <div class="card">
+        <h3>AG Clube da Informática</h3>
+        <p>Confira meu canal no YouTube com dicas, tutoriais e aulas completas para quem quer dominar a tecnologia de forma simples.</p>
+        <div class="btn-group">
+            <a href="https://youtube.com/@agclubedainformatica" class="btn btn-yt" target="_blank">Ver Canal no YouTube</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Alziro Guarany | Desenvolvedor Android</p>
+</footer>
+
+</body>
+</html> 
