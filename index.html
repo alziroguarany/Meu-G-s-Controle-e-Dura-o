@@ -21,74 +21,78 @@
             background: linear-gradient(135deg, #1a2a6c, #2a4858);
             color: white;
             width: 100%;
-            padding: 50px 20px;
+            padding: 30px 15px; /* Margem interna menor no celular */
             text-align: center;
             box-sizing: border-box;
         }
 
+        h1 { margin: 0; font-size: 1.6rem; }
+        p.subtitle { opacity: 0.9; margin-top: 5px; font-size: 1rem; }
+
         .container {
-            max-width: 700px;
-            width: 92%;
-            margin: -30px auto 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px; /* Largura máxima um pouco menor */
+            width: 90%; /* Deixa mais espaço nas bordas */
+            margin: 20px auto 30px auto; /* Margem normal, sem sobreposição */
             box-sizing: border-box;
         }
 
-        h1 { margin: 0; font-size: 1.8rem; }
-        p.subtitle { opacity: 0.9; margin-top: 5px; font-size: 1.1rem; }
-        h2 { color: #1a2a6c; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; margin-top: 30px; }
+        h2 { color: #1a2a6c; padding-bottom: 5px; margin-top: 25px; font-size: 1.4rem;}
 
         .card {
             border: 1px solid #e0e0e0;
-            padding: 20px;
+            padding: 15px; /* Padding interno menor */
             border-radius: 10px;
             margin-top: 15px;
             background-color: #ffffff;
-            transition: transform 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .card:hover { transform: translateY(-3px); border-color: #1a2a6c; }
+        h3 { margin-top: 0; font-size: 1.2rem; }
+        p { margin-bottom: 15px; font-size: 0.95rem; }
 
         .btn-group {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
+            flex-direction: column; /* FORÇA os botões na vertical no celular */
+            gap: 10px; /* Espaço entre os botões */
+            width: 100%;
         }
 
         .btn {
-            flex: 1;
-            min-width: 140px;
+            display: block; /* Botão ocupa a largura total disponível */
+            width: 100%; /* Garante que ocupe o card */
             text-align: center;
-            padding: 12px 15px;
+            padding: 12px 10px; /* Padding equilibrado */
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
             font-size: 0.9rem;
+            box-sizing: border-box; /* Importante para o padding não somar na largura */
             transition: opacity 0.3s;
         }
 
-        .btn-play { background: #00875f; color: white; } /* Cor Google Play */
-        .btn-yt { background: #ff0000; color: white; }   /* Cor YouTube */
-        .btn-policy { background: #f0f2f5; color: #1a2a6c; border: 1px solid #1a2a6c; }
+        .btn-play { background: #00875f; color: white; border: none; }
+        .btn-yt { background: #ff0000; color: white; border: none; }
+        .btn-policy { background: #ffffff; color: #1a2a6c; border: 1px solid #1a2a6c; }
 
         .btn:hover { opacity: 0.8; }
 
         footer {
             margin: 20px 0;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #65676b;
             text-align: center;
+            width: 100%;
         }
 
-        /* Ajuste para Celular: evita excesso de espaços e quebras estranhas */
-        @media (max-width: 480px) {
-            header { padding: 40px 15px; }
-            h1 { font-size: 1.5rem; }
-            .btn { width: 100%; flex: none; }
+        /* Ajustes para telas maiores que 480px (Tablet/PC) */
+        @media (min-width: 481px) {
+            header { padding: 50px 20px; }
+            h1 { font-size: 1.8rem; }
+            .btn-group {
+                flex-direction: row; /* Volta para lado a lado em telas maiores */
+                flex-wrap: wrap;
+            }
+            .btn { flex: 1; min-width: 140px; }
         }
     </style>
 </head>
@@ -100,7 +104,7 @@
 </header>
 
 <div class="container">
-    <h2>Destaque na Google Play</h2>
+    <h2>Meus Aplicativos</h2>
     <div class="card">
         <h3>Meu Gás: Controle e Duração</h3>
         <p>Economize e tenha o controle total do seu botijão. O app estima a duração baseada no seu uso real, sem precisar de balanças.</p>
