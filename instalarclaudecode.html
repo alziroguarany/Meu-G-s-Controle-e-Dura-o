@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code — Guia de Instalação</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #d4a843;
+    --accent2: #e8c97a;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --code-bg: #0d0d1a;
+    --success: #4ade80;
+    --warning: #fb923c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .hero {
+    position: relative;
+    padding: 80px 40px 60px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  h1 {
+    font-size: clamp(42px, 8vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s ease forwards;
+  }
+
+  h1 span {
+    color: var(--accent);
+    display: block;
+  }
+
+  .subtitle {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 480px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s ease forwards;
+  }
+
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 24px;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .step:nth-child(1) { animation-delay: 0.1s; }
+  .step:nth-child(2) { animation-delay: 0.2s; }
+  .step:nth-child(3) { animation-delay: 0.3s; }
+  .step:nth-child(4) { animation-delay: 0.4s; }
+  .step:nth-child(5) { animation-delay: 0.5s; }
+  .step:nth-child(6) { animation-delay: 0.6s; }
+  .step:nth-child(7) { animation-delay: 0.7s; }
+
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .step-num::after {
+    content: '';
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 100%;
+    background: var(--border);
+  }
+
+  .step:last-child .step-num::after { display: none; }
+
+  .step-body { padding-top: 8px; }
+
+  .step-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .step-title .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    background: rgba(212,168,67,0.12);
+    color: var(--accent);
+    padding: 2px 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .step-desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    margin: 10px 0;
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .code-block code {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    white-space: pre;
+    display: block;
+    line-height: 1.7;
+  }
+
+  .code-block code .comment {
+    color: var(--muted);
+  }
+
+  .code-block code .cmd {
+    color: var(--accent2);
+  }
+
+  .code-block code .flag {
+    color: #7dd3fc;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--border);
+    border: none;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    margin: 8px 0;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    transition: all 0.2s;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .link-card:hover {
+    border-color: var(--accent);
+    background: rgba(212,168,67,0.05);
+    transform: translateX(4px);
+  }
+
+  .link-card .arrow { margin-left: auto; color: var(--accent); }
+
+  .alert {
+    background: rgba(251,146,60,0.08);
+    border: 1px solid rgba(251,146,60,0.3);
+    border-left: 3px solid var(--warning);
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #fbd38d;
+  }
+
+  .alert strong { color: var(--warning); display: block; margin-bottom: 4px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; }
+
+  .commands-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .cmd-pill {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+  }
+
+  .cmd-pill .cmd-name { color: var(--accent); }
+  .cmd-pill .cmd-desc { color: var(--muted); font-size: 11px; margin-top: 4px; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 16px 0;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .troubleshoot-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 2px;
+    font-size: 17px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .troubleshoot-header .icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(251,146,60,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Auth options */
+  .auth-options { margin-top: 4px; }
+
+  .auth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .auth-card:hover { border-color: rgba(212,168,67,0.4); }
+
+  .auth-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .auth-icon { font-size: 20px; margin-top: 2px; flex-shrink: 0; }
+
+  .auth-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .auth-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .auth-badge {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    align-self: flex-start;
+  }
+
+  .auth-badge--pro {
+    background: rgba(74,222,128,0.12);
+    color: #4ade80;
+    border: 1px solid rgba(74,222,128,0.3);
+  }
+
+  .auth-badge--api {
+    background: rgba(125,211,252,0.1);
+    color: #7dd3fc;
+    border: 1px solid rgba(125,211,252,0.25);
+  }
+
+  .auth-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 12px 0;
+  }
+
+  .auth-divider::before,
+  .auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 24px 40px; }
+    .content { padding: 40px 24px; }
+    .step { grid-template-columns: 36px 1fr; gap: 0 16px; }
+    .commands-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div style="max-width:860px;margin:0 auto;">
+    <div class="badge">Antigravity · Guia de Instalação</div>
+    <h1>Claude<span>Code.</span></h1>
+    <p class="subtitle">Guia completo para instalar e configurar o Claude Code no Windows — do zero ao primeiro prompt.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-num">01</div>
+    <div class="step-body">
+      <div class="step-title">Criar conta ou gerar API Key</div>
+      <p class="step-desc">Você tem <strong style="color:var(--text)">duas formas</strong> de autenticar o Claude Code — escolha a que preferir:</p>
+
+      <div class="auth-options">
+
+        <div class="auth-card">
+          <div class="auth-card-header">
+            <span class="auth-icon">✦</span>
+            <div>
+              <div class="auth-title">Conta Claude Pro / Max</div>
+              <div class="auth-sub">Recomendado para uso pessoal</div>
+            </div>
+            <span class="auth-badge auth-badge--pro">MAIS FÁCIL</span>
+          </div>
+          <p class="auth-desc">Se você já tem ou quer criar uma conta no Claude.ai (plano Pro ou Max), pode usar diretamente — sem precisar de API Key. Basta fazer login pelo próprio terminal.</p>
+          <a class="link-card" href="https://claude.ai/login" target="_blank">
+            🟠 claude.ai/login — Entrar com conta existente
+            <span class="arrow">→</span>
+          </a>
+          <a class="link-card" href="https://claude.ai/upgrade" target="_blank">
+            ⭐ claude.ai/upgrade — Criar conta Pro / Max
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <div class="auth-divider"><span>ou</span></div>
+
+        <div class="auth-card">
+          <div class="auth-card-header">
+            <span class="auth-icon">🔑</span>
+            <div>
+              <div class="auth-title">API Key (Anthropic Platform)</div>
+              <div class="auth-sub">Para desenvolvedores e automações</div>
+            </div>
+            <span class="auth-badge auth-badge--api">AVANÇADO</span>
+          </div>
+          <p class="auth-desc">Crie uma conta na plataforma da Anthropic, gere uma API Key e use créditos por consumo. Ideal para integrar em projetos e pipelines.</p>
+          <a class="link-card" href="https://console.anthropic.com/login" target="_blank">
+            🔷 console.anthropic.com — Criar conta na plataforma
+            <span class="arrow">→</span>
+          </a>
+          <a class="link-card" href="https://platform.claude.com/settings/keys" target="_blank">
+            🔑 platform.claude.com/settings/keys — Gerar API Key
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-num">02</div>
+    <div class="step-body">
+      <div class="step-title">Instalar Node.js</div>
+      <p class="step-desc">Baixe e instale o Node.js LTS. Após a instalação, verifique se está funcionando:</p>
+      <a class="link-card" href="https://nodejs.org/" target="_blank">
+        🟢 nodejs.org — versão LTS recomendada
+        <span class="arrow">→</span>
+      </a>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="comment"># Verificar instalação</span>
+<span class="cmd">node</span> <span class="flag">--version</span>
+<span class="cmd">npm</span> <span class="flag">--version</span></code>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-num">03</div>
+    <div class="step-body">
+      <div class="step-title">Instalar Git <span class="tag">WINDOWS</span></div>
+      <p class="step-desc">O Git é necessário para algumas funcionalidades do Claude Code.</p>
+      <a class="link-card" href="https://git-scm.com/downloads/win" target="_blank">
+        🔷 git-scm.com/downloads/win
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-num">04</div>
+    <div class="step-body">
+      <div class="step-title">Configurar PowerShell</div>
+      <p class="step-desc">Permita a execução de scripts e adicione o npm ao PATH. Abra o PowerShell e rode:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="cmd">Set-ExecutionPolicy</span> <span class="flag">-ExecutionPolicy</span> RemoteSigned <span class="flag">-Scope</span> CurrentUser</code>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="comment"># Adicionar npm ao PATH (substitua SEU_USUARIO pelo seu usuário)</span>
+<span class="cmd">$env:PATH</span> += ";C:\Users\SEU_USUARIO\AppData\Roaming\npm"</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-num">05</div>
+    <div class="step-body">
+      <div class="step-title">Instalar Claude Code</div>
+      <p class="step-desc">Com o Node.js instalado, execute o comando abaixo para instalar o Claude Code globalmente:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="cmd">npm</span> install <span class="flag">-g</span> @anthropic-ai/claude-code</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-num">06</div>
+    <div class="step-body">
+      <div class="step-title">Iniciar e Autenticar</div>
+      <p class="step-desc">Execute o Claude Code no terminal. Ao iniciar pela primeira vez, ele vai perguntar como você quer autenticar:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="cmd">claude</span></code>
+      </div>
+      <div class="alert" style="border-left-color: var(--success); background: rgba(74,222,128,0.06); border-color: rgba(74,222,128,0.25); color: #bbf7d0;">
+        <strong style="color: var(--success);">// DUAS OPÇÕES DE LOGIN</strong>
+        O Claude Code aceita autenticação via <strong>conta Claude.ai (Pro/Max)</strong> ou via <strong>API Key</strong>. Escolha a opção que você configurou no Passo 01.
+      </div>
+      <div class="commands-grid">
+        <div class="cmd-pill">
+          <div class="cmd-name">/login</div>
+          <div class="cmd-desc">Entrar com conta Pro ou API Key</div>
+        </div>
+        <div class="cmd-pill">
+          <div class="cmd-name">/logout</div>
+          <div class="cmd-desc">Encerrar sessão atual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 — Troubleshooting -->
+  <div class="step">
+    <div class="step-num">07</div>
+    <div class="step-body">
+
+      <div class="troubleshoot-header">
+        <div class="icon">⚠️</div>
+        Node.js falhou ao instalar ferramentas automáticas?
+      </div>
+
+      <div class="alert">
+        <strong>// ATENÇÃO</strong>
+        Siga estes passos somente se o Node.js não instalou as ferramentas de build automaticamente durante sua instalação.
+      </div>
+
+      <hr class="divider">
+      <div class="section-label">Passo A — Visual Studio Build Tools</div>
+      <p class="step-desc">Abra o PowerShell como Administrador e execute:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="cmd">winget</span> install Microsoft.VisualStudio.2022.BuildTools <span class="flag">--override</span> <span class="flag">"--quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"</span></code>
+      </div>
+      <p class="step-desc">Se o winget falhar, instale manualmente pelo link abaixo:</p>
+      <a class="link-card" href="https://aka.ms/vs/17/release/vs_BuildTools.exe" target="_blank">
+        🛠️ Download manual — vs_BuildTools.exe
+        <span class="arrow">→</span>
+      </a>
+
+      <hr class="divider">
+      <div class="section-label">Passo B — Instalar Chocolatey</div>
+      <p class="step-desc">Abra o PowerShell como Administrador e rode os comandos na ordem:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="comment"># 1. Liberar execução de scripts</span>
+<span class="cmd">Set-ExecutionPolicy</span> Bypass <span class="flag">-Scope</span> Process <span class="flag">-Force</span>
+
+<span class="comment"># 2. Ativar protocolo de segurança TLS</span>
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+
+<span class="comment"># 3. Instalar Chocolatey</span>
+<span class="cmd">irm</span> https://community.chocolatey.org/install.ps1 | <span class="cmd">iex</span></code>
+      </div>
+      <p class="step-desc">Verifique se instalou corretamente:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        <code><span class="cmd">choco</span> <span class="flag">-v</span></code>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label">Passo C — Instalar Python</div>
+      <p class="step-desc">Baixe e instale o Python manualmente pelo link abaixo. Marque a opção "Add Python to PATH" durante a instalação.</p>
+      <a class="link-card" href="https://www.python.org/ftp/python/3.14.3/python-3.14.3-amd64.exe" target="_blank">
+        🐍 Python 3.14.3 — Download direto (64-bit)
+        <span class="arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Antigravity · Claude Code Install Guide · Não oficial — tutorial independente
+</footer>
+
+<script>
+  function copyCode(btn) {
+    const code = btn.nextElementSibling.innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'COPIADO!';
+      btn.style.background = '#4ade80';
+      btn.style.color = '#0a0a0f';
+      setTimeout(() => {
+        btn.textContent = 'COPIAR';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
