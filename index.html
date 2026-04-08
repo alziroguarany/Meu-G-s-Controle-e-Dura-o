@@ -1,132 +1,532 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alziro Guarany | Desenvolvedor & Professor</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #1c1e21;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alziro Guarany | Desenvolvedor & Professor</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #d4a843;
+    --accent2: #e8c97a;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #7dd3fc;
+  }
 
-        header {
-            background: linear-gradient(135deg, #1a2a6c, #2a4858);
-            color: white;
-            width: 100%;
-            padding: 30px 15px; /* Margem interna menor no celular */
-            text-align: center;
-            box-sizing: border-box;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        h1 { margin: 0; font-size: 1.6rem; }
-        p.subtitle { opacity: 0.9; margin-top: 5px; font-size: 1rem; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-        .container {
-            max-width: 600px; /* Largura máxima um pouco menor */
-            width: 90%; /* Deixa mais espaço nas bordas */
-            margin: 20px auto 30px auto; /* Margem normal, sem sobreposição */
-            box-sizing: border-box;
-        }
+  /* Grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
 
-        h2 { color: #1a2a6c; padding-bottom: 5px; margin-top: 25px; font-size: 1.4rem;}
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
 
-        .card {
-            border: 1px solid #e0e0e0;
-            padding: 15px; /* Padding interno menor */
-            border-radius: 10px;
-            margin-top: 15px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 
-        h3 { margin-top: 0; font-size: 1.2rem; }
-        p { margin-bottom: 15px; font-size: 0.95rem; }
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
 
-        .btn-group {
-            display: flex;
-            flex-direction: column; /* FORÇA os botões na vertical no celular */
-            gap: 10px; /* Espaço entre os botões */
-            width: 100%;
-        }
+  .nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
 
-        .btn {
-            display: block; /* Botão ocupa a largura total disponível */
-            width: 100%; /* Garante que ocupe o card */
-            text-align: center;
-            padding: 12px 10px; /* Padding equilibrado */
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-sizing: border-box; /* Importante para o padding não somar na largura */
-            transition: opacity 0.3s;
-        }
+  .nav-link:hover { color: var(--text); border-color: var(--border); }
 
-        .btn-play { background: #00875f; color: white; border: none; }
-        .btn-yt { background: #ff0000; color: white; border: none; }
-        .btn-policy { background: #ffffff; color: #1a2a6c; border: 1px solid #1a2a6c; }
+  .nav-link.highlight {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(212,168,67,0.08);
+  }
 
-        .btn:hover { opacity: 0.8; }
+  .nav-link.highlight:hover {
+    background: rgba(212,168,67,0.15);
+  }
 
-        footer {
-            margin: 20px 0;
-            font-size: 0.8rem;
-            color: #65676b;
-            text-align: center;
-            width: 100%;
-        }
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 80px 40px 64px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    text-align: center;
+  }
 
-        /* Ajustes para telas maiores que 480px (Tablet/PC) */
-        @media (min-width: 481px) {
-            header { padding: 50px 20px; }
-            h1 { font-size: 1.8rem; }
-            .btn-group {
-                flex-direction: row; /* Volta para lado a lado em telas maiores */
-                flex-wrap: wrap;
-            }
-            .btn { flex: 1; min-width: 140px; }
-        }
-    </style>
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,168,67,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 14px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 9vw, 92px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.08s ease forwards;
+  }
+
+  .hero h1 span { color: var(--accent); display: block; }
+
+  .hero-sub {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.16s ease forwards;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 64px 32px 80px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── APP GRID ── */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .app-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    transition: all 0.25s;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-card:hover {
+    border-color: rgba(212,168,67,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  }
+
+  .app-card:nth-child(1) { animation-delay: 0.1s; }
+  .app-card:nth-child(2) { animation-delay: 0.2s; }
+
+  .app-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .app-icon.gas  { background: rgba(74,222,128,0.12); }
+  .app-icon.fuel { background: rgba(251,191,36,0.12); }
+
+  .app-name {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .app-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-play {
+    background: rgba(74,222,128,0.1);
+    color: var(--green);
+    border-color: rgba(74,222,128,0.3);
+  }
+
+  .btn-play:hover {
+    background: rgba(74,222,128,0.2);
+    border-color: var(--green);
+  }
+
+  .btn-policy {
+    background: transparent;
+    color: var(--muted);
+  }
+
+  .btn-policy:hover { color: var(--text); border-color: var(--muted); }
+
+  /* ── YOUTUBE CARD ── */
+  .yt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.3s ease forwards;
+    transition: border-color 0.2s;
+  }
+
+  .yt-card:hover { border-color: rgba(248,113,113,0.4); }
+
+  .yt-icon {
+    width: 56px; height: 56px;
+    background: rgba(248,113,113,0.12);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+
+  .yt-text .yt-name { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .yt-text .yt-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+
+  .btn-yt {
+    background: rgba(248,113,113,0.1);
+    color: var(--red);
+    border-color: rgba(248,113,113,0.3);
+  }
+
+  .btn-yt:hover {
+    background: rgba(248,113,113,0.2);
+    border-color: var(--red);
+  }
+
+  /* ── CLAUDE CODE PROMO ── */
+  .claude-promo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.4s ease forwards;
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .claude-promo:hover { border-color: var(--accent); background: rgba(212,168,67,0.04); }
+
+  .claude-promo-left { display: flex; align-items: center; gap: 18px; }
+
+  .claude-promo-icon {
+    width: 48px; height: 48px;
+    background: rgba(212,168,67,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .claude-promo-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .claude-promo-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .claude-promo-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 8px 20px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .claude-promo:hover .claude-promo-cta {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 32px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE MOBILE ── */
+  @media (max-width: 600px) {
+
+    nav { padding: 0 16px; height: 52px; }
+    .nav-link { display: none; }
+    .nav-link.highlight {
+      display: inline-flex;
+      font-size: 10px;
+      padding: 5px 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 { font-size: clamp(36px, 13vw, 56px); letter-spacing: -0.02em; }
+    .hero-badge { font-size: 9px; letter-spacing: 0.15em; }
+    .hero-sub { font-size: 13px; }
+
+    .page { padding: 32px 16px 56px; }
+
+    .apps-grid { grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; }
+
+    .app-card { padding: 20px; }
+    .app-name { font-size: 15px; }
+    .app-desc { font-size: 13px; }
+    .btn-row { flex-direction: column; gap: 8px; }
+    .btn { width: 100%; justify-content: center; font-size: 11px; padding: 11px 16px; }
+
+    .yt-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .yt-text .yt-name { font-size: 16px; }
+    .yt-text .yt-desc { font-size: 13px; }
+
+    .claude-promo {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+      gap: 16px;
+    }
+    .claude-promo-title { font-size: 14px; }
+    .claude-promo-sub { font-size: 10px; }
+    .claude-promo-cta { width: 100%; text-align: center; padding: 11px 16px; }
+
+    .section-label { font-size: 9px; letter-spacing: 0.18em; }
+
+    footer { font-size: 10px; padding: 20px 16px; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-    <h1>Alziro Guarany</h1>
-    <p class="subtitle">Desenvolvedor Android & Professor de Informática</p>
-</header>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://alziroguarany.github.io">AG</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#apps">Apps</a>
+    <a class="nav-link" href="#youtube">YouTube</a>
+    <a class="nav-link highlight" href="https://alziroguarany.github.io/instalarclaudecode.html">⚡ Instalar Claude Code</a>
+  </div>
+</nav>
 
-<div class="container">
-    <h2>Meus Aplicativos</h2>
-    <div class="card">
-        <h3>Meu Gás: Controle e Duração</h3>
-        <p>Economize e tenha o controle total do seu botijão. O app estima a duração baseada no seu uso real, sem precisar de balanças.</p>
-        <div class="btn-group">
-            <a href="https://play.google.com/store/apps/details?id=com.ag.previsodogs" class="btn btn-play" target="_blank">Baixar na Play Store</a>
-            <a href="https://alziroguarany.github.io/politica-gas.html" class="btn btn-policy">Privacidade</a>
-        </div>
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Desenvolvedor Android & Professor</div>
+  <h1>Alziro<span>Guarany.</span></h1>
+  <p class="hero-sub">Apps úteis para o dia a dia · Aulas de Informática no YouTube</p>
+</div>
 
-    <h2>Aulas de Informática</h2>
-    <div class="card">
-        <h3>AG Clube da Informática</h3>
-        <p>Confira meu canal no YouTube com dicas, tutoriais e aulas completas para quem quer dominar a tecnologia de forma simples.</p>
-        <div class="btn-group">
-            <a href="https://youtube.com/@agclubedainformatica" class="btn btn-yt" target="_blank">Ver Canal no YouTube</a>
+<div class="page">
+
+  <!-- APPS -->
+  <div id="apps">
+    <div class="section-label">Meus Aplicativos</div>
+    <div class="apps-grid">
+
+      <!-- App 1: Meu Gás -->
+      <div class="app-card">
+        <div class="app-icon gas">🔥</div>
+        <div class="app-name">Meu Gás: Controle e Duração</div>
+        <p class="app-desc">Economize e tenha o controle total do seu botijão. Estima a duração baseada no seu uso real, sem precisar de balanças.</p>
+        <div class="btn-row">
+          <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.ag.previsodogs" target="_blank">▶ Play Store</a>
+          <a class="btn btn-policy" href="https://alziroguarany.github.io/politica-gas.html" target="_blank">Privacidade</a>
         </div>
+      </div>
+
+      <!-- App 2: Combustível -->
+      <div class="app-card">
+        <div class="app-icon fuel">⛽</div>
+        <div class="app-name">Calculadora de Combustível</div>
+        <p class="app-desc">Descubra se vale mais a pena abastecer com gasolina ou etanol. Cálculo rápido, simples e preciso para economizar na bomba.</p>
+        <div class="btn-row">
+          <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.neonlab.combustivel" target="_blank">▶ Play Store</a>
+          <a class="btn btn-policy" href="https://alziroguarany.github.io/agcombustivel.html" target="_blank">Privacidade</a>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  <!-- YOUTUBE -->
+  <div id="youtube">
+    <div class="section-label">Canal no YouTube</div>
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div class="yt-text">
+        <div class="yt-name">AG Clube da Informática</div>
+        <p class="yt-desc">Dicas, tutoriais e aulas completas para quem quer dominar a tecnologia de forma simples e prática.</p>
+        <div class="btn-row">
+          <a class="btn btn-yt" href="https://youtube.com/@agclubedainformatica" target="_blank">▶ Ver Canal no YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUDE CODE PROMO -->
+  <div class="section-label">Tutorial em Destaque</div>
+  <a class="claude-promo" href="https://alziroguarany.github.io/instalarclaudecode.html">
+    <div class="claude-promo-left">
+      <div class="claude-promo-icon">⚡</div>
+      <div>
+        <div class="claude-promo-title">Instalar Claude Code no Windows</div>
+        <div class="claude-promo-sub">Guia completo · do zero ao primeiro prompt</div>
+      </div>
+    </div>
+    <span class="claude-promo-cta">Ver Guia →</span>
+  </a>
+
 </div>
 
 <footer>
-    <p>&copy; 2026 Alziro Guarany | Desenvolvedor Android</p>
+  <p>© 2026 Alziro Guarany · Desenvolvedor Android</p>
 </footer>
 
 </body>
-</html> 
+</html>
