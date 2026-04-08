@@ -1,0 +1,52 @@
+Instalação Claude Code Antigravity
+
+https://platform.claude.com/settings/keys
+
+https://nodejs.org/
+
+https://git-scm.com/downloads/win
+
+
+npm install -g @anthropic-ai/claude-code
+
+node --version
+npm --version
+choco -v
+
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+$env:PATH += ";C:\Users\SEU_USUARIO\AppData\Roaming\npm"
+
+
+claude
+
+/login → entrar
+/logout → sair
+
+Se o node.js falhou ao instalar ferramentas automático siga esses passos: 
+
+Abra PowerShell como ADMIN
+
+Instalar tool visual studio: 
+
+winget install Microsoft.VisualStudio.2022.BuildTools --override "--quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+
+Se falhar instalar por aqui: https://aka.ms/vs/17/release/vs_BuildTools.exe
+
+
+//-->Instalar Chocolatey:
+
+1. Abra PowerShell como ADMIN
+2. Rode isso:
+
+Set-ExecutionPolicy Bypass -Scope Process -Force
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+
+3. Instalar o Chocolatey manualmente:
+irm https://community.chocolatey.org/install.ps1 | iex
+
+4. Instalar python: Baixe no site e instale manual:
+
+https://www.python.org/ftp/python/3.14.3/python-3.14.3-amd64.exe
