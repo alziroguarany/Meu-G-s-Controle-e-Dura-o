@@ -1,532 +1,518 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alziro Guarany | Desenvolvedor & Professor</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --border: #1e1e2e;
-    --accent: #d4a843;
-    --accent2: #e8c97a;
-    --text: #e8e8f0;
-    --muted: #6b6b8a;
-    --green: #4ade80;
-    --red: #f87171;
-    --blue: #7dd3fc;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alziro Guarany | Portfólio & Tutoriais</title>
+    <!-- Fontes Modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --section-bg: #f8faff;
+            --card-blue: #f4f9ff; /* Azul bem clarinho e suave */
+            --primary: #2563eb; /* Azul Principal */
+            --primary-dark: #1e40af;
+            --accent-lilac: #8b5cf6; /* Lilás */
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.1);
+            --border-color: #e2e8f0; 
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-  /* Grain */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
+        h1, h2, h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.02em;
+        }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 900;
-    background: rgba(10,10,15,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-  }
+        /* --- NAVEGAÇÃO --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
 
-  .nav-logo {
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            height: 75px;
+        }
 
-  .nav-links {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-  .nav-link {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 6px 14px;
-    border: 1px solid transparent;
-    transition: all 0.2s;
-  }
+        .logo span {
+            color: var(--accent-lilac);
+        }
 
-  .nav-link:hover { color: var(--text); border-color: var(--border); }
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
 
-  .nav-link.highlight {
-    color: var(--accent);
-    border-color: var(--accent);
-    background: rgba(212,168,67,0.08);
-  }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
 
-  .nav-link.highlight:hover {
-    background: rgba(212,168,67,0.15);
-  }
+        .nav-link:hover {
+            color: var(--primary);
+        }
 
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    padding: 80px 40px 64px;
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-    text-align: center;
-  }
+        /* DROPDOWN */
+        .dropdown {
+            position: relative;
+        }
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -120px; left: 50%;
-    transform: translateX(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(212,168,67,0.07) 0%, transparent 65%);
-    pointer-events: none;
-  }
+        .dropdown-trigger {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-  .hero-badge {
-    display: inline-block;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 4px 14px;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.5s ease forwards;
-  }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            min-width: 260px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            padding: 16px 0;
+        }
 
-  .hero h1 {
-    font-size: clamp(40px, 9vw, 92px);
-    font-weight: 800;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    opacity: 0;
-    animation: fadeUp 0.5s 0.08s ease forwards;
-  }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
 
-  .hero h1 span { color: var(--accent); display: block; }
+        .dropdown-item {
+            padding: 12px 20px;
+            display: block;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
 
-  .hero-sub {
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fadeUp 0.5s 0.16s ease forwards;
-  }
+        .dropdown-item:hover {
+            background: var(--card-blue);
+            color: var(--primary);
+        }
 
-  /* ── LAYOUT ── */
-  .page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 64px 32px 80px;
-  }
+        .sub-menu-title {
+            padding: 0 20px 10px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+        }
 
-  /* ── SECTION LABEL ── */
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 180px 24px 100px;
+            text-align: center;
+            background: radial-gradient(circle at top right, #f0f7ff, transparent 50%),
+                        radial-gradient(circle at bottom left, #f8f6ff, transparent 50%);
+        }
 
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 3.8rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
 
-  /* ── APP GRID ── */
-  .apps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    margin-bottom: 56px;
-  }
+        .hero h1 span {
+            background: linear-gradient(to right, var(--primary), var(--accent-lilac));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-  .app-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 24px;
-    transition: all 0.25s;
-    opacity: 0;
-    animation: fadeUp 0.5s ease forwards;
-    display: flex;
-    flex-direction: column;
-  }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
 
-  .app-card:hover {
-    border-color: rgba(212,168,67,0.4);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-  }
+        /* --- CARDS & GRIDS --- */
+        section {
+            padding: 100px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-  .app-card:nth-child(1) { animation-delay: 0.1s; }
-  .app-card:nth-child(2) { animation-delay: 0.2s; }
+        .section-header {
+            margin-bottom: 56px;
+        }
 
-  .app-icon {
-    width: 48px; height: 48px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+        }
 
-  .app-icon.gas  { background: rgba(74,222,128,0.12); }
-  .app-icon.fuel { background: rgba(251,191,36,0.12); }
+        .section-header .divider {
+            width: 60px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent-lilac));
+            border-radius: 3px;
+        }
 
-  .app-name {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
 
-  .app-desc {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-    flex: 1;
-    margin-bottom: 20px;
-  }
+        .card {
+            background: var(--card-blue); 
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
 
-  .btn-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.08);
+            border-color: var(--primary);
+            background: #ffffff; 
+        }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 8px 16px;
-    border: 1px solid var(--border);
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 28px;
+            width: 70px;
+            height: 70px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
 
-  .btn-play {
-    background: rgba(74,222,128,0.1);
-    color: var(--green);
-    border-color: rgba(74,222,128,0.3);
-  }
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
 
-  .btn-play:hover {
-    background: rgba(74,222,128,0.2);
-    border-color: var(--green);
-  }
+        .card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
 
-  .btn-policy {
-    background: transparent;
-    color: var(--muted);
-  }
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
 
-  .btn-policy:hover { color: var(--text); border-color: var(--muted); }
+        .btn {
+            padding: 14px 24px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-  /* ── YOUTUBE CARD ── */
-  .yt-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    margin-bottom: 56px;
-    opacity: 0;
-    animation: fadeUp 0.5s 0.3s ease forwards;
-    transition: border-color 0.2s;
-  }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
 
-  .yt-card:hover { border-color: rgba(248,113,113,0.4); }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
 
-  .yt-icon {
-    width: 56px; height: 56px;
-    background: rgba(248,113,113,0.12);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    flex-shrink: 0;
-  }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
 
-  .yt-text .yt-name { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-  .yt-text .yt-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
 
-  .btn-yt {
-    background: rgba(248,113,113,0.1);
-    color: var(--red);
-    border-color: rgba(248,113,113,0.3);
-  }
+        /* --- YOUTUBE SECTION (Com fundo unificado) --- */
+        .youtube-section {
+            background-color: var(--card-blue); /* Fundo igual aos cards dos apps */
+            border-radius: 48px;
+            padding: 80px 60px;
+            margin: 40px auto;
+            display: flex;
+            align-items: center;
+            gap: 56px;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
 
-  .btn-yt:hover {
-    background: rgba(248,113,113,0.2);
-    border-color: var(--red);
-  }
+        .youtube-section:hover {
+            background-color: #ffffff;
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.08);
+        }
 
-  /* ── CLAUDE CODE PROMO ── */
-  .claude-promo {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    padding: 28px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.5s 0.4s ease forwards;
-    transition: border-color 0.2s;
-    text-decoration: none;
-    color: inherit;
-  }
+        .yt-visual {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-lilac));
+            color: white;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+            position: relative;
+        }
 
-  .claude-promo:hover { border-color: var(--accent); background: rgba(212,168,67,0.04); }
+        .yt-visual::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            border-left: 28px solid white;
+            margin-left: 8px;
+        }
 
-  .claude-promo-left { display: flex; align-items: center; gap: 18px; }
+        .yt-content {
+            flex: 1;
+        }
 
-  .claude-promo-icon {
-    width: 48px; height: 48px;
-    background: rgba(212,168,67,0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
+        .yt-content h2 {
+            font-size: 2.4rem;
+            margin-bottom: 18px;
+        }
 
-  .claude-promo-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
+        .btn-custom-yt {
+            background: var(--text-main);
+            color: white;
+            padding: 18px 36px;
+            margin-top: 16px;
+            border-radius: 16px;
+            font-size: 1rem;
+        }
 
-  .claude-promo-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
+        .btn-custom-yt:hover {
+            background: var(--primary);
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
 
-  .claude-promo-cta {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 8px 20px;
-    white-space: nowrap;
-    transition: all 0.2s;
-    text-decoration: none;
-  }
+        /* --- FOOTER --- */
+        footer {
+            padding: 100px 24px 60px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
 
-  .claude-promo:hover .claude-promo-cta {
-    background: var(--accent);
-    color: var(--bg);
-  }
+        .footer-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 32px;
-    text-align: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
+        .footer-logo span { color: var(--accent-lilac); }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-  /* ── RESPONSIVE MOBILE ── */
-  @media (max-width: 600px) {
-
-    nav { padding: 0 16px; height: 52px; }
-    .nav-link { display: none; }
-    .nav-link.highlight {
-      display: inline-flex;
-      font-size: 10px;
-      padding: 5px 10px;
-      letter-spacing: 0.06em;
-    }
-
-    .hero { padding: 48px 20px 40px; }
-    .hero h1 { font-size: clamp(36px, 13vw, 56px); letter-spacing: -0.02em; }
-    .hero-badge { font-size: 9px; letter-spacing: 0.15em; }
-    .hero-sub { font-size: 13px; }
-
-    .page { padding: 32px 16px 56px; }
-
-    .apps-grid { grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; }
-
-    .app-card { padding: 20px; }
-    .app-name { font-size: 15px; }
-    .app-desc { font-size: 13px; }
-    .btn-row { flex-direction: column; gap: 8px; }
-    .btn { width: 100%; justify-content: center; font-size: 11px; padding: 11px 16px; }
-
-    .yt-card {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 20px;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .yt-text .yt-name { font-size: 16px; }
-    .yt-text .yt-desc { font-size: 13px; }
-
-    .claude-promo {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 20px;
-      gap: 16px;
-    }
-    .claude-promo-title { font-size: 14px; }
-    .claude-promo-sub { font-size: 10px; }
-    .claude-promo-cta { width: 100%; text-align: center; padding: 11px 16px; }
-
-    .section-label { font-size: 9px; letter-spacing: 0.18em; }
-
-    footer { font-size: 10px; padding: 20px 16px; }
-  }
-</style>
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .nav-menu { 
+                gap: 12px;
+            }
+            .nav-link { font-size: 0.85rem; }
+            .logo { font-size: 1.3rem; }
+            .hero { padding: 140px 24px 60px; }
+            .youtube-section {
+                flex-direction: column;
+                padding: 60px 24px;
+                text-align: center;
+                gap: 32px;
+            }
+            .yt-visual { width: 110px; height: 110px; border-radius: 32px; }
+            .apps-grid { grid-template-columns: 1fr; }
+            .card { padding: 30px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="https://alziroguarany.github.io">AG</a>
-  <div class="nav-links">
-    <a class="nav-link" href="#apps">Apps</a>
-    <a class="nav-link" href="#youtube">YouTube</a>
-    <a class="nav-link highlight" href="https://alziroguarany.github.io/instalarclaudecode.html">⚡ Instalar Claude Code</a>
-  </div>
-</nav>
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo">Alziro<span>Guarany</span></a>
+            
+            <ul class="nav-menu">
+                <li><a href="#apps" class="nav-link">Meus Apps</a></li>
+                <li class="dropdown">
+                    <span class="nav-link dropdown-trigger">Tutoriais ▼</span>
+                    <div class="dropdown-menu">
+                        <div class="sub-menu-title">Inteligência Artificial</div>
+                        <a href="https://alziroguarany.github.io/instalarclaudecode.html" class="dropdown-item">Instalar Claude Code no Windows</a>
+                    </div>
+                </li>
+                <li><a href="#youtube" class="nav-link">Meu Canal</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge">Desenvolvedor Android & Professor</div>
-  <h1>Alziro<span>Guarany.</span></h1>
-  <p class="hero-sub">Apps úteis para o dia a dia · Aulas de Informática no YouTube</p>
-</div>
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <h1>Soluções Digitais & <span>Inteligência Artificial.</span></h1>
+            <p>Criando ferramentas práticas e compartilhando conhecimento para transformar a sua relação com a tecnologia.</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="#apps" class="btn btn-primary">Ver Meus Aplicativos</a>
+                <a href="#youtube" class="btn btn-outline">Acessar Aulas no YouTube</a>
+            </div>
+        </section>
 
-<div class="page">
+        <!-- MEUS APPS -->
+        <section id="apps">
+            <div class="section-header">
+                <h2>Meus Aplicativos</h2>
+                <div class="divider"></div>
+            </div>
 
-  <!-- APPS -->
-  <div id="apps">
-    <div class="section-label">Meus Aplicativos</div>
-    <div class="apps-grid">
+            <div class="apps-grid">
+                <!-- App 1 -->
+                <div class="card">
+                    <div class="card-icon" style="color: #ef4444; border-color: #fca5a5;">🔥</div>
+                    <h3>Meu Gás: Controle</h3>
+                    <p>Mantenha o controle total do seu botijão. Uma ferramenta indispensável para prever a duração do gás baseada no seu consumo real.</p>
+                    <div class="btn-group">
+                        <a href="https://play.google.com/store/apps/details?id=com.ag.previsodogs" class="btn btn-primary" target="_blank">Download Play Store</a>
+                        <a href="https://alziroguarany.github.io/politica-gas.html" class="btn btn-outline" target="_blank">Privacidade</a>
+                    </div>
+                </div>
 
-      <!-- App 1: Meu Gás -->
-      <div class="app-card">
-        <div class="app-icon gas">🔥</div>
-        <div class="app-name">Meu Gás: Controle e Duração</div>
-        <p class="app-desc">Economize e tenha o controle total do seu botijão. Estima a duração baseada no seu uso real, sem precisar de balanças.</p>
-        <div class="btn-row">
-          <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.ag.previsodogs" target="_blank">▶ Play Store</a>
-          <a class="btn btn-policy" href="https://alziroguarany.github.io/politica-gas.html" target="_blank">Privacidade</a>
-        </div>
-      </div>
+                <!-- App 2 -->
+                <div class="card">
+                    <div class="card-icon" style="color: #2563eb; border-color: #93c5fd;">⛽</div>
+                    <h3>Calculadora de Combustível</h3>
+                    <p>Economize na hora de abastecer. Saiba rapidamente se compensa usar Álcool ou Gasolina com cálculos de eficiência em tempo real.</p>
+                    <div class="btn-group">
+                        <a href="https://play.google.com/store/apps/details?id=com.neonlab.combustivel" class="btn btn-primary" target="_blank">Download Play Store</a>
+                        <a href="https://alziroguarany.github.io/agcombustivel.html" class="btn btn-outline" target="_blank">Privacidade</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- App 2: Combustível -->
-      <div class="app-card">
-        <div class="app-icon fuel">⛽</div>
-        <div class="app-name">Calculadora de Combustível</div>
-        <p class="app-desc">Descubra se vale mais a pena abastecer com gasolina ou etanol. Cálculo rápido, simples e preciso para economizar na bomba.</p>
-        <div class="btn-row">
-          <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.neonlab.combustivel" target="_blank">▶ Play Store</a>
-          <a class="btn btn-policy" href="https://alziroguarany.github.io/agcombustivel.html" target="_blank">Privacidade</a>
-        </div>
-      </div>
+        <!-- YOUTUBE -->
+        <section id="youtube">
+            <div class="youtube-section">
+                <div class="yt-visual" title="Canal de Tecnologia"></div>
+                <div class="yt-content">
+                    <h2>AG Clube da Informática</h2>
+                    <p>Aprenda Linux, Servidores Windows Server, Ubuntu Server com Samba 4, Hardware, dicas de formatação e instalação de Windows e Linux.</p>
+                    <a href="https://youtube.com/@agclubedainformatica" class="btn btn-custom-yt" target="_blank">Quero Aprender no YouTube</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    </div>
-  </div>
+    <footer>
+        <a href="#" class="footer-logo">Alziro<span>Guarany</span></a>
+        <p class="copyright">© 2026 · Alziro Guarany · Desenvolvedor Android & Professor.<br>Transformando tecnologia em simplicidade para todos.</p>
+    </footer>
 
-  <!-- YOUTUBE -->
-  <div id="youtube">
-    <div class="section-label">Canal no YouTube</div>
-    <div class="yt-card">
-      <div class="yt-icon">▶</div>
-      <div class="yt-text">
-        <div class="yt-name">AG Clube da Informática</div>
-        <p class="yt-desc">Dicas, tutoriais e aulas completas para quem quer dominar a tecnologia de forma simples e prática.</p>
-        <div class="btn-row">
-          <a class="btn btn-yt" href="https://youtube.com/@agclubedainformatica" target="_blank">▶ Ver Canal no YouTube</a>
-        </div>
-      </div>
-    </div>
-  </div>
+    <script>
+        // Smooth scroll aprimorado
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === "#") return;
+                
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offset = 90; 
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-  <!-- CLAUDE CODE PROMO -->
-  <div class="section-label">Tutorial em Destaque</div>
-  <a class="claude-promo" href="https://alziroguarany.github.io/instalarclaudecode.html">
-    <div class="claude-promo-left">
-      <div class="claude-promo-icon">⚡</div>
-      <div>
-        <div class="claude-promo-title">Instalar Claude Code no Windows</div>
-        <div class="claude-promo-sub">Guia completo · do zero ao primeiro prompt</div>
-      </div>
-    </div>
-    <span class="claude-promo-cta">Ver Guia →</span>
-  </a>
-
-</div>
-
-<footer>
-  <p>© 2026 Alziro Guarany · Desenvolvedor Android</p>
-</footer>
-
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
